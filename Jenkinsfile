@@ -22,10 +22,11 @@ pipeline {
             }
         }
         stage('Test') {
-            
             agent {
-                    docker 'node:18-alpine'
-                    reuseNode true
+                    docker {
+                        'node:18-alpine'
+                        reuseNode true
+                    }
                 }
 
             steps {

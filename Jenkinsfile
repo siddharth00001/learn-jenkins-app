@@ -83,7 +83,10 @@ pipeline {
                     steps {
                         sh '''
                         npm install netlify-cli --save-dev
-                        node_modules/.bin/netlify --version
+                        npm ls rimraf
+                        npm install rimraf@latest --save-dev
+                        npm ls netlify-cli rimraf
+                        # node_modules/.bin/netlify --version
                         '''
                     }
                 }

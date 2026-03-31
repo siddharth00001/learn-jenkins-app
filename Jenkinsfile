@@ -92,6 +92,7 @@ pipeline {
                             NETLIFY_INSTANCE=./node_modules/.bin/netlify
                             $NETLIFY_INSTANCE --version
                             $NETLIFY_INSTANCE status
+                            $NETLIFY_INSTANCE deploy --dir=build
                         '''
                     }
                 }

@@ -8,7 +8,7 @@ pipeline {
     agent any
 
     stages {
-        /* 
+
         stage('Build') {
 
             agent {
@@ -19,6 +19,7 @@ pipeline {
             }
             steps {
                 sh '''
+                echo "Pipeline Started"
                 ls -la 
                 node --version
                 npm --version
@@ -28,7 +29,6 @@ pipeline {
                 '''
             }
         }
-        */
         stage('Tests') {
             parallel {
 

@@ -82,7 +82,11 @@ pipeline {
                 }
                     steps {
                         sh '''
+                        mkdir -p $HOME/.npm-global
+                        npm config set prefix "$HOME/.npm-gloal"
+                        export PATH="$HOME/.npm-global/bin:$PATH"
                         npm install -g netlify-cli
+                        netlify --version
                         '''
                     }
                 }

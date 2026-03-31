@@ -1,4 +1,9 @@
 pipeline {
+
+    environment  {
+        NETLIFY_SITE_ID = "c669eca6-00ec-4939-bde5-fc54dc3c79b2"
+    }
+
     agent any
 
     stages {
@@ -82,7 +87,8 @@ pipeline {
                 }
                     steps {
                         sh '''
-                       npx netlify-cli@latest --version
+                            npx netlify-cli@latest --version
+                            echo "The Project id is $NETLIFY_SITE_ID"
                         '''
                     }
                 }

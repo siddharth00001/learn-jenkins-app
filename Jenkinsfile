@@ -88,8 +88,10 @@ pipeline {
                 }
                     steps {
                         sh '''
-                            npm install netlify-cli
-                            ./node_modules/.bin/netlify --version
+                            npm install netlify-cli --ignore-scripts
+                            NETLIFY_INSTANCE=./node_modules/.bin/netlify
+                            $NETLIFY_INSTANCE --version
+                            $NETLIFY_INSTANCE status
                         '''
                     }
                 }

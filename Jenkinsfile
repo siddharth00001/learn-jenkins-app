@@ -82,7 +82,7 @@ pipeline {
                 }
                     steps {
                         sh '''
-                        sudo npm install -g netlify-cli
+                        npm install -g netlify-cli
                         '''
                     }
                 }

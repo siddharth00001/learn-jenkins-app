@@ -88,9 +88,8 @@ pipeline {
                 }
                     steps {
                         sh '''
-                            npx netlify-cli@latest --version
-                            echo "The Project id is $NETLIFY_SITE_ID"
-                            netlify status
+                            npm install netlify-cli
+                            ./node_modules/.bin/netlify --version
                         '''
                     }
                 }

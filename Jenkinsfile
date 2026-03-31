@@ -82,9 +82,7 @@ pipeline {
                 }
                     steps {
                         sh '''
-                        npm install rimraf@latest --save-dev
-                        npm ls rimraf
-                        npm install netlify-cli -g
+                        sudo npm install -g netlify-cli
                         '''
                     }
                 }

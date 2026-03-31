@@ -3,6 +3,7 @@ pipeline {
     environment  {
         NETLIFY_SITE_ID = "c669eca6-00ec-4939-bde5-fc54dc3c79b2"
         NETLIFY_AUTH_TOKEN = credentials('netlify-token')
+        CI_ENVIRONMENT_URL = "https://comfy-madeleine-ea7926.netlify.app/"
     }
 
     agent any
@@ -71,7 +72,7 @@ pipeline {
                     }
                     post {
                         always {
-                            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'PlayWright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'PlayWright Local Report', reportTitles: '', useWrapperFileDirectly: true])
                         }
                     }
                 }
@@ -101,8 +102,34 @@ pipeline {
                         '''
                     }
                 }
+
+            stage('Prod E2E') {
+
+                    agent{
+                            docker {
+                                image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+                                reuseNode true
+
+                                }
+                        }
+                    environment  {
+                            CI_ENVIRONMENT_URL = "https://comfy-madeleine-ea7926.netlify.app"
+                        }
+                    steps {
+                            sh '''
+                            npm install serve
+                            node_modules/.bin/serve -s build &
+                            sleep 10
+                            npx playwright test --reporter=html
+                            '''
+                        }
+                    post {
+                            always {
+                                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'PlayWright Prod Report', reportTitles: '', useWrapperFileDirectly: true])
+                            }
+                        }
+                    }
         
     }
-
     
 }

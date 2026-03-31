@@ -2,6 +2,7 @@ pipeline {
 
     environment  {
         NETLIFY_SITE_ID = "c669eca6-00ec-4939-bde5-fc54dc3c79b2"
+        NETLIFY_AUTH_TOKEN = credentials('netlify-token')
     }
 
     agent any
@@ -89,6 +90,7 @@ pipeline {
                         sh '''
                             npx netlify-cli@latest --version
                             echo "The Project id is $NETLIFY_SITE_ID"
+                            netlify status
                         '''
                     }
                 }
